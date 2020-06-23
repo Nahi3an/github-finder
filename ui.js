@@ -7,7 +7,9 @@ class UI{
   }
 
   showProfile(user){
-    console.log(user.login);
+    
+    console.log(user);
+
     this.profile.innerHTML = 
     `<div class = "card card-body mb-3">
       <div class="row">
@@ -38,7 +40,7 @@ class UI{
     <h4 class="page-heading mb-3">Latest Repositories of <span class ="text-success font-weight-bolder">${user.login}</span></h4>
 
     <div id="repos" class="text-center">
-    </div> `
+    </div> ` 
   }
 
   showRepos(repos){
@@ -77,11 +79,10 @@ class UI{
       `
    });
 
-   //Show output in UI 
 
-   console.log(output);
+  
    }
-
+ //Show output in UI 
    document.getElementById('repos').innerHTML = output
   
 

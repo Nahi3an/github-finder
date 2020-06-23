@@ -1,6 +1,6 @@
 
 //Init Github
-const github = new GitHub();
+const github = new Github();
 
 //Init UI
 const ui = new UI();
@@ -14,9 +14,37 @@ userNameInput.addEventListener('keyup',(e)=>{
 
  
   //get user name
-  const userNameTxt = e.target.value;
+const userNameTxt = e.target.value;
 
-  if(userNameTxt !== ''){
+if(userNameTxt !== ''){
+
+
+  github.get(userNameTxt, function(err,response){
+
+    if(err){
+
+      ui.showAlert('User Not Found!', 'alert alert-dismissible alert-danger');
+      
+    }
+    else{
+
+      const user = JSON.parse(response)
+      ui.showProfile(user);
+
+     
+
+    }});
+
+}
+else{
+
+  ui.clearProfile();
+
+
+}
+
+
+  /* if(userNameTxt !== ''){
     
     //make http call
     github.getUser(userNameTxt)
@@ -50,6 +78,6 @@ userNameInput.addEventListener('keyup',(e)=>{
   else{
 
      ui.clearProfile();
-  }
+  } */
   
 })
