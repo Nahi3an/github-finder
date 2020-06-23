@@ -28,21 +28,63 @@
 // }
 
 
-function Github(){
+function Profile(){
 
   this.client_id = 'a6cd4bff870bd92556c6';
   this.client_secret = 'b9c9f03edeccffef430d610403931b18ccf566a2';
-  this.xhr = new XMLHttpRequest();
+  this.pro = new XMLHttpRequest();
   
 }
 
-Github.prototype.get = function(user,callback){
+function Repos(){
+
+  this.client_id = 'a6cd4bff870bd92556c6';
+  this.client_secret = 'b9c9f03edeccffef430d610403931b18ccf566a2';
+  this.repo = new XMLHttpRequest();
+
+  this.repos_amount = 5;
+  this.repos_sort = 'created: asc';
+  
+}
+
+Repos.prototype.get = function(user,callback){
+
+  this.repo.open('GET',`https://api.github.com/users/${user}/repos?per_page=${this.repos_amount}&sort=${this.repos_sort}&client_id=${this.client_id}&client_secret=${this.client_secret}`);
+
+  this.repo.onload = function(){
+
+    if(this.status = 200){
+
+      callback(false,this.responseText);
+
+      
+    }
+    else{
+
+      callback(true,'No Repos Found');
+
+    }
 
 
-  this.xhr.open('GET', `https://api.github.com/users/${user}?client_id=${this.client_id}&client_secret=${this.client_secret}`, true);
+
+  }
 
 
-  this.xhr.onload = function(){
+  this.repo.send(); 
+
+
+
+}
+
+
+Profile.prototype.get = function(user,callback){
+
+
+  this.pro.open('GET', `https://api.github.com/users/${user}?client_id=${this.client_id}&client_secret=${this.client_secret}`, true);
+
+  
+
+  this.pro.onload = function(){
 
 
     if(this.status===200){
@@ -59,5 +101,5 @@ Github.prototype.get = function(user,callback){
     }
   }
  
-  this.xhr.send();
+  this.pro.send();
 }

@@ -82,6 +82,7 @@ class UI{
 
   
    }
+
  //Show output in UI 
    document.getElementById('repos').innerHTML = output
   
@@ -96,15 +97,16 @@ class UI{
 
   showAlert(msg,className){
 
-    // const [div, para ] = className;
-    //  this.profile.innerHTML = 
-    // `<div class= "${div}">
-    //  <h1 class="${para}">${msg}</h1>
-    // </div>`
+  
+    //Alert Simpl
+     this.profile.innerHTML = 
+    `<div class= "${className}">
+     <h3>${msg} </h3>
+    </div>`
 
 
     //Remove Current Alert 
-    this.clearAlert();
+   /* this.clearAlert();
 
     //Create Alert Div
     const div = document.createElement('div');
@@ -123,11 +125,11 @@ class UI{
 
       this.clearAlert();
 
-    },2000)
+    },2000)*/
 
   }
 
-  clearAlert(){
+ /* clearAlert(){
 
     const currentAlert = document.querySelector('.alert');
 
@@ -137,7 +139,7 @@ class UI{
 
     }
 
-  }
+  } */
 
   
 

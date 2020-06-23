@@ -1,7 +1,8 @@
 
 //Init Github
-const github = new Github();
+const profile = new Profile();
 
+const repos = new Repos();
 //Init UI
 const ui = new UI();
 
@@ -19,21 +20,40 @@ const userNameTxt = e.target.value;
 if(userNameTxt !== ''){
 
 
-  github.get(userNameTxt, function(err,response){
+  profile.get(userNameTxt, function(err,response){
 
     if(err){
 
-      ui.showAlert('User Not Found!', 'alert alert-dismissible alert-danger');
-      
+      ui.showAlert('User Not Found!', 'alert alert-danger text-center');
+
     }
     else{
 
       const user = JSON.parse(response)
       ui.showProfile(user);
 
-     
+      repos.get(userNameTxt, function(err, response){
+      
+      if(err){
+
+        console.log(response);
+
+      }
+      else{
+
+        // ui.showRepos(response);
+        const repos = JSON.parse(response);
+        ui.showRepos(repos);
+        
+
+      }
+      
+      });
+
 
     }});
+
+
 
 }
 else{
