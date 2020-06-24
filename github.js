@@ -78,9 +78,7 @@ Profile.prototype.get = function(user,callback){
 /**
  * Using Fetch and Promises
  */
-
-
-class Github{
+/* class Github{
   
   constructor(){
 
@@ -91,6 +89,7 @@ class Github{
     
   }
 
+  //to get the user profile
   getUserProfile(user){
 
     const promise = new Promise((resolve,reject)=>{
@@ -105,6 +104,7 @@ class Github{
 
   }
 
+  //To get the repos
   getUserRepos(user){
 
     const promise = new Promise((resolve,reject)=>{
@@ -119,18 +119,45 @@ class Github{
 
   }
 
- 
-
-
 }
+*/
+
+/**
+ * Using Async And Await 
+*/
+
+class Github{
+
+  constructor(){
+
+    this.client_id = 'a6cd4bff870bd92556c6';
+    this.client_secret = 'b9c9f03edeccffef430d610403931b18ccf566a2';
+
+  }
+
+ async getUserInfo(user){
+
+    const profileRes = await fetch(`https://api.github.com/users/${user}?client_id=${this.client_id}&client_secret=${this.client_secret}`); 
+
+    const repoRes = await fetch(`https://api.github.com/users/${user}/repos?per_page=${this.repos_amount}&sort=${this.repos_sort}&client_id=${this.client_id}&client_secret=${this.client_secret}`);
+
+ 
+    const profile = await profileRes.json();
+    
+    const repos = await repoRes.json();
+
+    return {profile, repos};
+
+
+  }
+}
+
 
 
 // class GitHub{
 //   constructor(){
 
-//     this.client_id = 'a6cd4bff870bd92556c6';
-//     this.client_secret = 'b9c9f03edeccffef430d610403931b18ccf566a2';
-
+//     
 //     this.repos_amount = 5;
 //     this.repos_sort = 'created: asc';
 
