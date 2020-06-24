@@ -1,39 +1,33 @@
-
-//Init Github
-const profile = new Profile();
-
-const repos = new Repos();
-//Init UI
-const ui = new UI();
-
-/// Search Input
-
 const userNameInput = document.getElementById('username');
 
+/**
+ * AJAX & XHR 
+*/
+
+/*
+const profile = new Profile();
+const repos = new Repos();
+
+const ui = new UI();
 
 userNameInput.addEventListener('keyup',(e)=>{
 
- 
-  //get user name
+//get user name
 const userNameTxt = e.target.value;
 
 if(userNameTxt !== ''){
-
-
+ 
   profile.get(userNameTxt, function(err,response){
 
-    if(err){
+  if(err){
 
-      ui.showAlert('User Not Found!', 'alert alert-danger text-center');
+    ui.showAlert('User Not Found!', 'alert alert-danger text-center');
 
-    }
-    else{
+  }else{
 
       const user = JSON.parse(response)
       ui.showProfile(user);
-
       repos.get(userNameTxt, function(err, response){
-      
       if(err){
 
         console.log(response);
@@ -41,63 +35,75 @@ if(userNameTxt !== ''){
       }
       else{
 
-        // ui.showRepos(response);
         const repos = JSON.parse(response);
         ui.showRepos(repos);
-        
-
-      }
-      
+       }
       });
-
-
     }});
-
-
-
-}
+  }
 else{
 
-  ui.clearProfile();
-
+ ui.clearProfile();
 
 }
+})*/
+
+/**
+ * Using Fetch , Promises
+ */
+
+ const github = new Github();
 
 
-  /* if(userNameTxt !== ''){
-    
-    //make http call
-    github.getUser(userNameTxt)
-    .then(data =>{
+ const ui = new UI();
 
-      const msg = data.profile.message;
-      if( msg === 'Not Found'){
-       
-        //Show Alert 
-        // ui.showAlert('User Not Found!',['text-center','text-danger mt-5']);
-        ui.showAlert('User Not Found!', 'alert alert-dismissible alert-danger')
+ userNameInput.addEventListener('keyup',function(e){
 
+
+  const userNameTxt = e.target.value;
+
+  if(userNameTxt!==''){
+
+    //Sending user name to fetch
+    github.getUserProfile(userNameTxt)
+    .then((profile)=>{
+      
+      if(profile.message){
+
+        ui.showAlert('User Not Found!', 'alert alert-danger text-center');
+      
       }
       else{
 
-        //Passing all the profile info
-        const profile = data.profile;
-        const repos = data.repos;
-        // console.log(data.profile);
+        ui.showProfile(profile);
 
-        ui.showProfile(profile)
-        ui.showRepos(repos);
-        
+        github.getUserRepos(userNameTxt)
+        .then((repos)=>{
+
+         console.log(repos);
+         ui.showRepos(repos);
+
+        })
+        .catch((error)=>{
+
+          console.log(error);
+        })
         
       }
 
-     
-    });
+    })
+    .catch((error)=>{
 
+      console.log(error);
+
+    })
   }
   else{
+   
 
-     ui.clearProfile();
-  } */
-  
-})
+    ui.clearProfile();
+
+
+  }
+
+ })
