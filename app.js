@@ -48,23 +48,21 @@ else{
 }
 })*/
 
+
+
+const github = new Github();
+const ui = new UI();
+
 /**
  * Using Fetch , Promises
  */
 
- const github = new Github();
-
-
- const ui = new UI();
-
- userNameInput.addEventListener('keyup',function(e){
-
-
+/*userNameInput.addEventListener('keyup',function(e){
+  
   const userNameTxt = e.target.value;
 
   if(userNameTxt!==''){
-
-    //Sending user name to fetch
+  //Sending user name to fetch
     github.getUserProfile(userNameTxt)
     .then((profile)=>{
       
@@ -88,10 +86,8 @@ else{
 
           console.log(error);
         })
-        
-      }
-
-    })
+        }
+      })
     .catch((error)=>{
 
       console.log(error);
@@ -99,11 +95,44 @@ else{
     })
   }
   else{
-   
-
+    
     ui.clearProfile();
 
+  }
+}) */
+
+
+/**
+ * Using Async Await 
+*/
+
+userNameInput.addEventListener('keyup',function(e){
+
+  const userNameTxt = e.target.value;
+
+  if(userNameTxt!==''){
+
+    github.getUserInfo(userNameTxt)
+    .then(data=>{
+
+     
+
+      if(data.profile.message){
+
+        ui.showAlert('User Not Found!', 'alert alert-danger text-center');
+
+      }else{
+
+        ui.showProfile(data.profile);
+        ui.showRepos(data.repos);
+        
+      }
+    })
 
   }
+  else{
+        ui.clearProfile();
+  }
 
- })
+
+})
