@@ -141,7 +141,6 @@ class Github{
 
     const repoRes = await fetch(`https://api.github.com/users/${user}/repos?per_page=${this.repos_amount}&sort=${this.repos_sort}&client_id=${this.client_id}&client_secret=${this.client_secret}`);
 
- 
     const profile = await profileRes.json();
     
     const repos = await repoRes.json();

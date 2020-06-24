@@ -132,6 +132,7 @@ userNameInput.addEventListener('keyup',function(e){
   }
   else{
         ui.clearProfile();
+        
   }
 
 

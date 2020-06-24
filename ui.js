@@ -240,6 +240,7 @@ class UI{
 
  /* clearCurrentAlert(){
 
+  
     const currentAlert = document.querySelector('.alert');
 
     if(currentAlert){
